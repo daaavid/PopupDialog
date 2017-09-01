@@ -130,11 +130,15 @@ final public class PopupDialogContainerView: UIView {
 
     /// The center constraint of the shadow container
     internal var centerYConstraint: NSLayoutConstraint? = nil
+  
+    /// The width of the shadow container
+    internal var width: CGFloat = 340
 
     // MARK: - Initializers
-
-    internal override init(frame: CGRect) {
+  
+    internal init(frame: CGRect, width: CGFloat) {
         super.init(frame: frame)
+        self.width = width
         setupViews()
     }
 
@@ -156,7 +160,7 @@ final public class PopupDialogContainerView: UIView {
         var constraints = [NSLayoutConstraint]()
 
         // Shadow container constraints
-        constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=10,==20@900)-[shadowContainer(<=340,>=300)]-(>=10,==20@900)-|", options: [], metrics: nil, views: views)
+        constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=10,==20@900)-[shadowContainer(<=\(width),>=300)]-(>=10,==20@900)-|", options: [], metrics: nil, views: views)
         constraints += [NSLayoutConstraint(item: shadowContainer, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)]
         centerYConstraint = NSLayoutConstraint(item: shadowContainer, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
         constraints.append(centerYConstraint!)

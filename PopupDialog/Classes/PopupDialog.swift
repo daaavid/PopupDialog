@@ -56,6 +56,9 @@ final public class PopupDialog: UIViewController {
 
     /// Keyboard height
     internal var keyboardHeight: CGFloat? = nil
+  
+    /// Width of the popup 
+    internal var width: CGFloat = 340
 
     // MARK: Public
 
@@ -87,8 +90,9 @@ final public class PopupDialog: UIViewController {
                 buttonAlignment: UILayoutConstraintAxis = .vertical,
                 transitionStyle: PopupDialogTransitionStyle = .bounceUp,
                 gestureDismissal: Bool = true,
+                width: CGFloat = 340,
                 completion: (() -> Void)? = nil) {
-
+      
         // Create and configure the standard popup dialog view
         let viewController = PopupDialogDefaultViewController()
         viewController.titleText   = title
@@ -96,7 +100,7 @@ final public class PopupDialog: UIViewController {
         viewController.image       = image
 
         // Call designated initializer
-        self.init(viewController: viewController, buttonAlignment: buttonAlignment, transitionStyle: transitionStyle, gestureDismissal: gestureDismissal, completion: completion)
+        self.init(viewController: viewController, buttonAlignment: buttonAlignment, transitionStyle: transitionStyle, gestureDismissal: gestureDismissal, width: width, completion: completion)
     }
 
     /*!
@@ -115,10 +119,12 @@ final public class PopupDialog: UIViewController {
         buttonAlignment: UILayoutConstraintAxis = .vertical,
         transitionStyle: PopupDialogTransitionStyle = .bounceUp,
         gestureDismissal: Bool = true,
+        width: CGFloat = 340,
         completion: (() -> Void)? = nil) {
 
         self.viewController = viewController
         self.completion = completion
+        self.width = width
         super.init(nibName: nil, bundle: nil)
 
         // Init the presentation manager
@@ -176,7 +182,7 @@ final public class PopupDialog: UIViewController {
 
     /// Replaces controller view with popup view
     public override func loadView() {
-        view = PopupDialogContainerView(frame: UIScreen.main.bounds)
+        view = PopupDialogContainerView(frame: UIScreen.main.bounds, width: width)
     }
 
     public override func viewWillAppear(_ animated: Bool) {
