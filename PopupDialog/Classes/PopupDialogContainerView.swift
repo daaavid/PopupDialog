@@ -149,7 +149,6 @@ final public class PopupDialogContainerView: UIView {
     internal init(frame: CGRect, preferredWidth: CGFloat) {
         self.preferredWidth = preferredWidth
         super.init(frame: frame)
-        self.width = width
         setupViews()
     }
 
